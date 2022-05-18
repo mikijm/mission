@@ -1,0 +1,9 @@
+# Ignore state
+./terraform.tfstate
+./terraform.tfstate.backup
+
+# Ignore tfvars
+./terraform.tfvars
+
+# Ignore Providers
+.terraform/*
