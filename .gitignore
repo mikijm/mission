@@ -6,4 +6,4 @@
 ./terraform.tfvars
 
 # Ignore Providers
-.terraform/*
+*/.terraform/*

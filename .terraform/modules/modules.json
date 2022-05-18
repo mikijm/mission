@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"gke","Source":"./gke","Dir":"gke"},{"Key":"k8s","Source":"./k8s","Dir":"k8s"},{"Key":"vpc","Source":"./vpc","Dir":"vpc"},{"Key":"","Source":"","Dir":"."},{"Key":"my_gke","Source":"./gke","Dir":"gke"},{"Key":"my_k8s","Source":"./k8s","Dir":"k8s"},{"Key":"my_vpc","Source":"./vpc","Dir":"vpc"}]}
