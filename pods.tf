@@ -100,7 +100,7 @@ resource "kubernetes_replication_controller" "frontend" {
   }
 
   spec {
-    replicas = 3
+    replicas = 1
     selector = {
       app  = "guestbook"
       tier = "frontend"

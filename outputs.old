@@ -1,7 +1,15 @@
+output "network_main" {
+  value     = google_compute_network.main.self_link
+#  sensitive = true
+}
+
+output "network_private" {
+  value     = google_compute_subnetwork.private.self_link
+}
+
 output "client_certificate" {
   value     = google_container_cluster.primary.master_auth.0.client_certificate
   description = "client_certificate"
-  sensitive = true
 }
 
 output "client_key" {
@@ -13,11 +21,9 @@ output "client_key" {
 output "cluster_ca_certificate" {
   value     = google_container_cluster.primary.master_auth.0.cluster_ca_certificate
   description = "ca_certificate"
-  sensitive = true
 }
 
 output "host" {
   value     = google_container_cluster.primary.endpoint
   description = "host"
-  sensitive = true
 }
