@@ -1,3 +1,4 @@
+# Define the kubernetes service for redis master
 resource "kubernetes_service" "redis-master" {
   metadata {
     name = "redis-master"
@@ -23,6 +24,7 @@ resource "kubernetes_service" "redis-master" {
   }
 }
 
+# Define the kubernetes service for redis slaves
 resource "kubernetes_service" "redis-slave" {
   metadata {
     name = "redis-slave"
@@ -48,6 +50,7 @@ resource "kubernetes_service" "redis-slave" {
   }
 }
 
+# Define the kubernetes service for the ingress frontent
 resource "kubernetes_service" "frontend" {
   metadata {
     name = "frontend"

@@ -1,3 +1,4 @@
+# Define the private subnet and secondary ranges for pods and services
 resource "google_compute_subnetwork" "private" {
   name                     = "private"
   ip_cidr_range            = "10.0.0.0/18"

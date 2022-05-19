@@ -1,12 +1,13 @@
+# Define dedicated service account
 resource "google_service_account" "kubernetes" {
   account_id = "kubernetes"
   project = var.project
 }
 
+# Define first node pool general to run cluster components 
 resource "google_container_node_pool" "general" {
   name       = "general"
   cluster    = google_container_cluster.primary.id
-  node_count = 1
 
   management {
     auto_repair  = true
@@ -28,8 +29,9 @@ resource "google_container_node_pool" "general" {
   }
 }
 
-resource "google_container_node_pool" "spot" {
-  name    = "spot"
+# Define second instance group to applications
+resource "google_container_node_pool" "apps" {
+  name    = "apps"
   cluster = google_container_cluster.primary.id
 
   management {
@@ -47,12 +49,12 @@ resource "google_container_node_pool" "spot" {
     machine_type = "e2-small"
 
     labels = {
-      team = "devops"
+      role = "apps"
     }
 
     taint {
       key    = "instance_type"
-      value  = "spot"
+      value  = "apps"
       effect = "NO_SCHEDULE"
     }
 

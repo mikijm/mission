@@ -1,3 +1,4 @@
+# Define NAT rules and lock down access
 resource "google_compute_router_nat" "nat" {
   name   = "nat"
   router = google_compute_router.router.name

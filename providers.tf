@@ -1,3 +1,4 @@
+# Define the terraform providers and version contraints
 terraform {
 
     required_version = ">= 0.13.0"
@@ -15,10 +16,6 @@ terraform {
             source = "hashicorp/kubernetes"
             version = "2.8.0"     
         }
-        kubectl = {
-            source = "gavinbunney/kubectl"
-            version = "1.13.1"
-        }
     }
 }
 
@@ -31,11 +28,16 @@ data "google_container_cluster" "primary" {
   project  = var.project
 }
 
+# Define GCP provider supplying project/location details
+provider "google" {
+  project = var.project
+  region  = var.region
+}
+
+# Define kubernetes & helm providers and provide GKE connection details
 provider "kubernetes" {
   host  = "https://${google_container_cluster.primary.endpoint}"
   token = data.google_client_config.provider.access_token
-#  client_certificate     = base64decode( google_container_cluster.primary.master_auth[0].client_certificate )
-#  client_key             = base64decode( google_container_cluster.primary.master_auth[0].client_key )
   cluster_ca_certificate = base64decode( google_container_cluster.primary.master_auth[0].cluster_ca_certificate )
 }
 
@@ -43,18 +45,6 @@ provider "helm" {
   kubernetes {
     host  = "https://${google_container_cluster.primary.endpoint}"
     token = data.google_client_config.provider.access_token
- #   client_certificate     = base64decode( google_container_cluster.primary.master_auth[0].client_certificate )
- #   client_key             = base64decode( google_container_cluster.primary.master_auth[0].client_key )
     cluster_ca_certificate = base64decode( google_container_cluster.primary.master_auth[0].cluster_ca_certificate )
   }
-}
-
-provider "kubectl" {
-  host  = "https://${google_container_cluster.primary.endpoint}"
-  token = data.google_client_config.provider.access_token
-#  client_certificate     = base64decode( google_container_cluster.primary.master_auth[0].client_certificate )
-#  client_key             = base64decode( google_container_cluster.primary.master_auth[0].client_key )
-  cluster_ca_certificate = base64decode( google_container_cluster.primary.master_auth[0].cluster_ca_certificate )
-
-  load_config_file = false
 }

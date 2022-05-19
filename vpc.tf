@@ -1,3 +1,4 @@
+# Enable some required GCP APIs
 resource "google_project_service" "compute" {
   service = "compute.googleapis.com"
   project = var.project
@@ -8,6 +9,7 @@ resource "google_project_service" "container" {
   project = var.project
 }
 
+# Define our main VPC Network using REGIONAL routing mode
 resource "google_compute_network" "main" {
   name                            = "main"
   project = var.project

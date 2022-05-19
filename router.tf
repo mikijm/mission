@@ -1,3 +1,4 @@
+# Define cloud router which allows internet access to hosts
 resource "google_compute_router" "router" {
   name    = "router"
   project = var.project

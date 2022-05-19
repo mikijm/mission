@@ -1,3 +1,4 @@
+# Define the redis master kubernetes pod
 resource "kubernetes_replication_controller" "redis-master" {
   metadata {
     name = "redis-master"
@@ -42,6 +43,7 @@ resource "kubernetes_replication_controller" "redis-master" {
   }
 }
 
+# Define the redis slave kubernetes pods
 resource "kubernetes_replication_controller" "redis-slave" {
   metadata {
     name = "redis-slave"
@@ -90,6 +92,7 @@ resource "kubernetes_replication_controller" "redis-slave" {
   }
 }
 
+# Define the ingress frontend kubernetes pod
 resource "kubernetes_replication_controller" "frontend" {
   metadata {
     name = "frontend"

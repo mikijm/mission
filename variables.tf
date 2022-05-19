@@ -1,5 +1,4 @@
-variable "username" { default = "admin" }
-variable "password" {}
+# Define some variables that will be used in the build process
 variable "project" {}
 variable "region" {}
 variable "cluster_name" {}
