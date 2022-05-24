@@ -9,6 +9,8 @@ resource "google_container_node_pool" "general" {
   name       = "general"
   cluster    = google_container_cluster.primary.id
 
+  node_count = 1
+
   management {
     auto_repair  = true
     auto_upgrade = true
@@ -16,7 +18,7 @@ resource "google_container_node_pool" "general" {
 
   node_config {
     preemptible  = false
-    machine_type = "e2-small"
+    machine_type = "e2-medium"
 
     labels = {
       role = "general"
@@ -40,22 +42,16 @@ resource "google_container_node_pool" "apps" {
   }
 
   autoscaling {
-    min_node_count = 0
+    min_node_count = 1
     max_node_count = 10
   }
 
   node_config {
     preemptible  = true
-    machine_type = "e2-small"
+    machine_type = "e2-medium"
 
     labels = {
       role = "apps"
-    }
-
-    taint {
-      key    = "instance_type"
-      value  = "apps"
-      effect = "NO_SCHEDULE"
     }
 
     service_account = google_service_account.kubernetes.email

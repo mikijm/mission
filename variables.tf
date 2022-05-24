@@ -2,3 +2,4 @@
 variable "project" {}
 variable "region" {}
 variable "cluster_name" {}
+variable "istio_helm_release_version" {}
