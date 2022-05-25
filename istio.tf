@@ -6,21 +6,21 @@ resource "kubernetes_namespace" "istio_system" {
 }
 
 # Download the Istio installer
-#resource "null_resource" "helm_repo" {
-#  provisioner "local-exec" {
-#    command = <<EOF
-#    set -xe
-#    cd ${path.root}
-#    rm -rf ./istio-${var.istio_helm_release_version} || true
-#    curl -sL https://istio.io/downloadIstio | ISTIO_VERSION=${var.istio_helm_release_version} TARGET_ARCH=x86_64 sh -
-#    rm -rf ./istio || true
-#    mv ./istio-${var.istio_helm_release_version} istio
-#    EOF
-#  }
-#  triggers = {
-#    build_number = timestamp()
-#  }
-#}
+resource "null_resource" "helm_repo" {
+  provisioner "local-exec" {
+    command = <<EOF
+    set -xe
+    cd ${path.root}
+    rm -rf ./istio-${var.istio_helm_release_version} || true
+    curl -sL https://istio.io/downloadIstio | ISTIO_VERSION=${var.istio_helm_release_version} TARGET_ARCH=x86_64 sh -
+    rm -rf ./istio || true
+    mv ./istio-${var.istio_helm_release_version} istio
+    EOF
+  }
+  triggers = {
+    build_number = timestamp()
+  }
+}
 
 # Install Istio Base
 resource "helm_release" "istio_base" {
