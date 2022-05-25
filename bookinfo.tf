@@ -18,4 +18,5 @@ resource "null_resource" "deploy_bookinfo" {
   triggers = {
     build_number = timestamp()
   }
+  depends_on = [google_container_node_pool.apps]
 }
