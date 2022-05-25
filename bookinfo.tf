@@ -4,6 +4,7 @@ resource "null_resource" "deploy_bookinfo" {
     command = <<EOF
     set -xe
     cd ${path.root}
+    sleep 20
     gcloud container clusters get-credentials primary --region us-east1 --project semiotic-vial-350421
     kubectl label namespace default istio-injection=enabled --overwrite
     kubectl apply -f ./istio/samples/bookinfo/platform/kube/bookinfo.yaml

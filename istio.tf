@@ -1,7 +1,7 @@
 # Create Isto Namespace
 resource "kubernetes_namespace" "istio_system" {
   metadata {
-    name = "istio-system"
+    name       = "istio-system"
   }
 }
 
@@ -48,7 +48,7 @@ resource "helm_release" "istiod" {
   values = [
     "${file("istio_values.yaml")}"
   ]
-  depends_on      = [kubernetes_namespace.istio_system, helm_release.istio_base]
+  depends_on      = [kubernetes_namespace.istio_system, helm_release.istio_base,google_container_node_pool.apps]
 }
 
 # Install Istio Ingress
@@ -62,5 +62,5 @@ resource "helm_release" "istio_ingress" {
   values = [
     "${file("istio_values.yaml")}"
   ]
-  depends_on      = [kubernetes_namespace.istio_system, helm_release.istiod]
+  depends_on      = [kubernetes_namespace.istio_system, helm_release.istiod, google_container_node_pool.apps]
 }
